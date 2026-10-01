@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://tax-calculator-b1a.pages.dev/sitemap.xml
