@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f6f7f4">
+  <meta name="description" content="공급가액과 부가세 포함 금액을 간편하게 나눠 계산해 보세요. 일반과세자 기준 참고용 계산기입니다.">
+  <title>부가가치세 계산기 | 세금한눈에</title>
+  <style>
+    :root{--ink:#17231f;--muted:#738078;--green:#176b51;--lime:#d7f36a;--line:#e5e9e3;--paper:#fff;--bg:#f6f7f4;--soft:#eef4ed}
+    *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI","Noto Sans KR",sans-serif;line-height:1.65}a{color:var(--green)}.wrap{width:min(960px,calc(100% - 32px));margin:auto}
+    header{height:72px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line)}.brand{font-weight:850;text-decoration:none;color:var(--ink)}.back{font-size:14px;text-decoration:none}
+    main{padding:52px 0 70px}.eyebrow{color:var(--green);font-size:12px;font-weight:800;letter-spacing:.08em}.intro h1{font-size:clamp(32px,5vw,46px);letter-spacing:-1.5px;line-height:1.2;margin:10px 0}.intro p{color:#657269;max-width:680px;margin:0}
+    .layout{display:grid;grid-template-columns:1fr .9fr;gap:18px;margin-top:28px}.card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:24px;box-shadow:0 8px 28px rgba(24,47,37,.04)}h2{font-size:19px;margin:0 0 6px}.sub{font-size:13px;color:var(--muted);margin:0 0 20px}.modes{display:grid;grid-template-columns:1fr 1fr;gap:8px}.mode{border:1px solid var(--line);background:white;border-radius:10px;padding:11px 8px;font-weight:700;color:#526158}.mode[aria-pressed="true"]{background:#edf5ee;border-color:#8bb598;color:var(--green)}label{display:block;font-size:13px;font-weight:750;margin:22px 0 7px}.input{position:relative}.input input{width:100%;padding:14px 48px 14px 13px;border:1px solid #dce3dc;border-radius:11px;font-size:18px;outline:none}.input input:focus{border-color:var(--green);box-shadow:0 0 0 3px rgba(23,107,81,.1)}.unit{position:absolute;right:14px;top:50%;transform:translateY(-50%);color:var(--muted);font-size:13px;pointer-events:none}.hint{font-size:11px;color:#849087;margin-top:7px}.results{background:#eff5ec}.result-label{font-size:13px;color:#657269;margin-top:12px}.result-value{font-size:29px;font-weight:850;color:var(--green);letter-spacing:-.6px}.total{border-top:1px solid #dce7d8;margin-top:18px;padding-top:16px}.total .result-value{font-size:32px;color:var(--ink)}.explain{margin-top:24px}.explain h2{margin-top:24px}.explain p,.explain li{font-size:14px;color:#526158}.formula{background:#f3f6f1;border-radius:10px;padding:13px 15px;font-size:14px;color:#35463b}.notice{font-size:12px!important;color:#7b877f!important}.site-footer{border-top:1px solid var(--line);padding:22px 0 34px;color:#738078;font-size:12px;display:flex;gap:18px;flex-wrap:wrap}
+    @media(max-width:700px){.layout{grid-template-columns:1fr}.card{padding:20px}main{padding-top:38px}}
+  </style>
+</head>
+<body>
+<header class="wrap"><a class="brand" href="/">₩ 세금한눈에</a><a class="back" href="/">홈으로 돌아가기 ←</a></header>
+<main class="wrap">
+  <div class="intro"><span class="eyebrow">VAT CALCULATOR</span><h1>부가가치세 계산기</h1><p>공급가액과 부가세 포함 금액을 간편하게 나눠 계산합니다. 일반과세자의 국내 과세 거래에서 부가세율 10%를 적용한 단순 계산이며, 신고 납부세액을 계산하는 도구는 아닙니다.</p></div>
+  <div class="layout">
+    <section class="card" aria-labelledby="calcTitle"><h2 id="calcTitle">금액 입력</h2><p class="sub">계산할 금액의 종류를 선택하세요.</p>
+      <div class="modes" role="group" aria-label="계산 방식"><button class="mode" id="exclusiveMode" type="button" aria-pressed="true">부가세 별도 금액</button><button class="mode" id="inclusiveMode" type="button" aria-pressed="false">부가세 포함 금액</button></div>
+      <label for="amount" id="amountLabel">공급가액</label><div class="input"><input id="amount" type="number" min="0" step="1" inputmode="numeric" value="100000"><span class="unit">원</span></div>
+      <p class="hint" id="inputHint">부가세를 제외한 금액을 입력하세요.</p>
+    </section>
+    <section class="card results" aria-live="polite" aria-label="계산 결과"><h2>계산 결과</h2>
+      <div class="result-label" id="supplyLabel">공급가액</div><div class="result-value" id="supply">100,000원</div>
+      <div class="result-label">부가가치세 (10%)</div><div class="result-value" id="vat">10,000원</div>
+      <div class="total"><div class="result-label">합계 금액</div><div class="result-value" id="total">110,000원</div></div>
+    </section>
+  </div>
+  <section class="card explain"><span class="eyebrow">계산 방법</span><h2>어떻게 계산하나요?</h2>
+    <p>부가세 별도 금액은 입력한 공급가액에 10%를 곱해 부가세를 계산합니다. 이미 부가세가 포함된 금액은 총액을 11로 나누면 그 안에 포함된 부가세를 구할 수 있습니다.</p>
+    <div class="formula">부가세 별도: 부가세 = 공급가액 × 10%, 합계 = 공급가액 × 1.1<br>부가세 포함: 공급가액 = 합계 ÷ 1.1, 부가세 = 합계 ÷ 11</div>
+    <h2>계산 예시</h2><ul><li>공급가액 100,000원 → 부가세 10,000원 → 합계 110,000원</li><li>부가세 포함 110,000원 → 공급가액 100,000원, 부가세 10,000원</li></ul>
+    <h2>알아둘 점</h2><p class="notice">이 계산기는 일반과세자의 10% 세율이 적용되는 과세 거래를 가정합니다. 간이과세자는 업종별 부가가치율, 매입세액 공제, 공제·감면, 영세율 또는 면세 여부 등에 따라 실제 납부세액이 달라집니다. 거래 증빙과 신고 금액은 국세청 안내 또는 세무 전문가를 통해 확인하세요.</p>
+    <p>세율 및 간이과세 계산 기준: <a href="https://www.nts.go.kr/nts/cm/cntnts/cntntsView.do?cntntsId=7802&amp;mi=10514" target="_blank" rel="noopener noreferrer">국세청 부가가치세 안내</a></p>
+  </section>
+</main>
+<footer class="wrap site-footer"><a href="/privacy.html">개인정보처리방침</a><a href="/">세금한눈에 홈</a><span>계산 결과는 참고용이며 세무 자문을 대신하지 않습니다.</span></footer>
+<script>
+  const amount = document.querySelector('#amount');
+  const exclusiveMode = document.querySelector('#exclusiveMode');
+  const inclusiveMode = document.querySelector('#inclusiveMode');
+  const won = value => Math.round(value).toLocaleString('ko-KR') + '원';
+  let mode = 'exclusive';
+  function update(){
+    const entered = Math.max(0, Number(amount.value) || 0);
+    const supply = mode === 'exclusive' ? entered : entered / 1.1;
+    const vat = mode === 'exclusive' ? entered * 0.1 : entered / 11;
+    const total = mode === 'exclusive' ? entered + vat : entered;
+    document.querySelector('#supply').textContent = won(supply);
+    document.querySelector('#vat').textContent = won(vat);
+    document.querySelector('#total').textContent = won(total);
+    document.querySelector('#amountLabel').textContent = mode === 'exclusive' ? '공급가액' : '부가세 포함 합계 금액';
+    document.querySelector('#inputHint').textContent = mode === 'exclusive' ? '부가세를 제외한 금액을 입력하세요.' : '부가세가 포함된 최종 금액을 입력하세요.';
+    document.querySelector('#supplyLabel').textContent = mode === 'exclusive' ? '공급가액' : '공급가액 (포함 금액에서 분리)';
+  }
+  function setMode(next){
+    mode = next;
+    exclusiveMode.setAttribute('aria-pressed', String(mode === 'exclusive'));
+    inclusiveMode.setAttribute('aria-pressed', String(mode === 'inclusive'));
+    update();
+  }
+  exclusiveMode.addEventListener('click',()=>setMode('exclusive'));
+  inclusiveMode.addEventListener('click',()=>setMode('inclusive'));
+  amount.addEventListener('input',update);
+  update();
+</script>
+</body>
+</html>
