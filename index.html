@@ -28,20 +28,20 @@
   <main id="home">
     <div class="wrap hero">
       <div><span class="eyebrow">복잡한 세금, 한눈에 쉽게</span><h1>내 돈의 흐름을<br><em>쉽고 투명하게</em></h1><p>궁금했던 세금과 실수령액, 필요한 숫자만 입력하면 간편하게 확인할 수 있어요.</p><div class="hero-actions"><button class="primary" onclick="document.querySelector('#salary').scrollIntoView({behavior:'smooth'})">실수령액 계산하기 <span aria-hidden="true">→</span></button><button class="secondary" onclick="document.querySelector('#calculators').scrollIntoView({behavior:'smooth'})">계산기 둘러보기</button></div><div class="hero-note">간편 계산 결과는 참고용이며, 실제 세액과 차이가 있을 수 있습니다.</div></div>
-      <div class="preview" aria-label="연봉 5천만 원 예시 미리보기"><div class="preview-top"><span>월 예상 실수령액</span><span class="pill">예시 · 연봉 5,000만원</span></div><div class="preview-label">매월 내 통장에 들어오는 금액</div><div class="preview-value">약 3,535,000<small>원</small></div><div class="preview-rule"></div><div class="preview-row"><span>세금 및 4대 보험</span><strong>약 632,000원</strong></div><div class="preview-row"><span>공제 후 연봉</span><strong>약 4,242만원</strong></div><div class="preview-bottom">정확한 금액은 부양가족 수와 비과세액에 따라 달라져요.</div></div>
+      <div class="preview" aria-label="입력값에 따른 연봉 실수령액 예상"><div class="preview-top"><span>월 예상 실수령액</span><span class="pill">현재 입력값 반영</span></div><div class="preview-label">매월 내 통장에 들어오는 금액</div><div class="preview-value" id="previewMonthly">—<small>원</small></div><div class="preview-rule"></div><div class="preview-row"><span>예상 공제액</span><strong id="previewDeductions">—</strong></div><div class="preview-row"><span>연 예상 실수령액</span><strong id="previewYearly">—</strong></div><div class="preview-bottom">아래 계산기와 같은 기준으로 계산한 간편 추정치예요.</div></div>
     </div>
     <div class="wrap stats"><div class="stat"><b>간편 입력</b><span>필요한 정보만 입력</span></div><div class="stat"><b>항목별 확인</b><span>공제 내역을 한눈에</span></div><div class="stat"><b>무료 이용</b><span>로그인 없이 바로 계산</span></div></div>
     <section class="wrap" id="salary">
-      <div class="section-head"><div><span class="eyebrow">SALARY CALCULATOR</span><h2>연봉 실수령액 계산기</h2></div><p>2026년 기준 간편 예상 계산</p></div>
+      <div class="section-head"><div><span class="eyebrow">SALARY CALCULATOR</span><h2>연봉 실수령액 계산기</h2></div><p>2026년 보험료율 기준 · 세금은 단순 추정</p></div>
       <div class="calculator-layout">
         <form class="panel" id="salaryForm"><h3>내 조건 입력하기</h3><p class="panel-sub">입력한 정보는 이 페이지에서 계산에만 사용됩니다.</p>
           <div class="field"><label for="salaryInput">세전 연봉</label><div class="input-wrap"><input id="salaryInput" type="number" min="0" max="10000000000" step="100000" value="50000000" inputmode="numeric"><span class="suffix">원</span></div><div class="field-help">성과급을 포함한 연간 총 급여를 입력해 주세요.</div></div>
           <div class="field"><label for="dependents">공제 대상 가족 수 (본인 포함)</label><div class="input-wrap"><input id="dependents" type="number" min="1" max="20" step="1" value="1" inputmode="numeric"><span class="suffix">명</span></div></div>
           <div class="field"><label for="nontax">월 비과세액</label><div class="input-wrap"><input id="nontax" type="number" min="0" max="5000000" step="10000" value="200000" inputmode="numeric"><span class="suffix">원</span></div><div class="field-help">식대 등 비과세 급여가 없다면 0원을 입력하세요.</div></div>
-          <div class="toggle-row"><label for="hasDependents"><input id="hasDependents" type="checkbox" checked> 부양가족 중 8세 이상 20세 이하 자녀 있음</label></div>
+          <div class="field"><label for="children">공제 대상 가족 중 8~20세 자녀 수</label><div class="input-wrap"><input id="children" type="number" min="0" max="20" step="1" value="0" inputmode="numeric"><span class="suffix">명</span></div><div class="field-help">해당 자녀가 없다면 0명을 입력하세요.</div></div>
           <button class="calc-button" type="submit">실수령액 계산하기</button>
         </form>
-        <div class="panel result-panel" aria-live="polite"><div class="result-top"><span>예상 월 실수령액</span><span>세후 금액</span></div><div class="result-big" id="monthlyResult">3,532,410<small>원</small></div><div class="result-month">예상 연 실수령액 <b id="yearlyResult">42,388,920원</b></div><div class="result-bars" aria-hidden="true"><i class="bar-take"></i><i class="bar-tax"></i><i class="bar-ins"></i></div><div class="legend"><span><i class="dot" style="background:#4d9a6b"></i>실수령액</span><span><i class="dot" style="background:#b0cf54"></i>세금</span><span><i class="dot" style="background:#90aaa0"></i>4대 보험</span></div><div class="result-list"><div class="result-line"><span>국민연금</span><b id="pensionResult">187,500원</b></div><div class="result-line"><span>건강보험 · 장기요양</span><b id="healthResult">153,000원</b></div><div class="result-line"><span>고용보험</span><b id="employmentResult">37,500원</b></div><div class="result-line"><span>소득세 · 지방소득세</span><b id="taxResult">589,590원</b></div></div><p class="result-disclaimer">간편 추정치입니다. 실제 원천징수액은 비과세 항목, 회사 규정, 연말정산 및 해당 연도 보험료율·세법 적용에 따라 다를 수 있습니다.</p></div>
+        <div class="panel result-panel" aria-live="polite"><div class="result-top"><span>예상 월 실수령액</span><span>세후 금액</span></div><div class="result-big" id="monthlyResult">—<small>원</small></div><div class="result-month">예상 연 실수령액 <b id="yearlyResult">—</b></div><div class="result-bars" aria-hidden="true"><i class="bar-take"></i><i class="bar-tax"></i><i class="bar-ins"></i></div><div class="legend"><span><i class="dot" style="background:#4d9a6b"></i>실수령액</span><span><i class="dot" style="background:#b0cf54"></i>세금</span><span><i class="dot" style="background:#90aaa0"></i>4대 보험</span></div><div class="result-list"><div class="result-line"><span>국민연금</span><b id="pensionResult">—</b></div><div class="result-line"><span>건강보험 · 장기요양</span><b id="healthResult">—</b></div><div class="result-line"><span>고용보험</span><b id="employmentResult">—</b></div><div class="result-line"><span>소득세 · 지방소득세 (간편 추정)</span><b id="taxResult">—</b></div></div><p class="result-disclaimer">이 계산기는 일반 근로자의 월 급여가 연중 일정하다고 가정한 참고용 추정치입니다. 2026년 7월~2027년 6월 보험료 상·하한과 근로자 부담률을 반영했습니다. 소득세는 연간 세액을 월 단위로 나눈 단순 추정이며, 국세청 근로소득 간이세액표를 그대로 조회하지 않습니다. 상여 지급 시기, 원천징수 비율(80·100·120%), 공제대상 가족 요건, 연말정산 등에 따라 실제 급여명세서와 다를 수 있습니다. 실제 세액은 국세청 홈택스 계산 결과와 급여명세서를 확인하세요.</p><div class="field-help" style="margin-top:12px">적용 보험료: 국민연금 근로자 부담 4.75%(월 기준소득 41만~659만원), 건강보험 3.595%, 장기요양 0.4724%, 고용보험 0.9%. 기준 자료: <a href="https://www.nps.or.kr/pnsinfo/ntpsklg/getOHAF0006M0.do" target="_blank" rel="noopener">국민연금공단</a> · <a href="https://edi.nhis.or.kr/portal/images/popup/20251204_pop01longdesc.html" target="_blank" rel="noopener">국민건강보험공단</a> · <a href="https://nts.go.kr/nts/cm/cntnts/cntntsView.do?cntntsId=7862&amp;mi=6426" target="_blank" rel="noopener">국세청 간이세액표 안내</a></div></div>
       </div>
     </section>
     <section class="wrap tools" id="calculators"><div class="section-head"><div><span class="eyebrow">MORE CALCULATORS</span><h2>필요한 계산기를 찾아보세요</h2></div><p>계산기는 계속 추가될 예정이에요.</p></div><div class="tool-grid">
@@ -56,26 +56,45 @@
   <script>
     const won = n => Math.max(0, Math.round(n)).toLocaleString('ko-KR') + '원';
     const clamp = (value, min, max) => Math.min(max, Math.max(min, value));
+    function earnedIncomeDeduction(annualTaxablePay){
+      let deduction;
+      if(annualTaxablePay<=5000000) deduction=annualTaxablePay*.7;
+      else if(annualTaxablePay<=15000000) deduction=3500000+(annualTaxablePay-5000000)*.4;
+      else if(annualTaxablePay<=45000000) deduction=7500000+(annualTaxablePay-15000000)*.15;
+      else if(annualTaxablePay<=100000000) deduction=12000000+(annualTaxablePay-45000000)*.05;
+      else deduction=14750000+(annualTaxablePay-100000000)*.02;
+      return Math.min(20000000,deduction);
+    }
     function estimate(){
       const annual = clamp(Number(document.querySelector('#salaryInput').value)||0,0,10000000000);
       const dependents = clamp(Math.floor(Number(document.querySelector('#dependents').value)||1),1,20);
       const nontax = clamp(Number(document.querySelector('#nontax').value)||0,0,5000000);
+      const children = clamp(Math.floor(Number(document.querySelector('#children').value)||0),0,20);
       const monthlyGross=annual/12, monthlyTaxable=Math.max(0,monthlyGross-nontax);
-      // Simplified employee contribution estimates; rates and caps should be checked against current official guidance.
-      const pension=Math.min(monthlyTaxable,6170000)*.045;
-      const health=monthlyTaxable*.03545;
-      const care=health*.1295;
+      // 2026 employee shares: NPS 4.75% (July 2026 cap), health 7.19%/2,
+      // long-term care 0.9448%/2, employment insurance 0.9%.
+      const pension=monthlyTaxable>0?Math.min(6590000,Math.max(410000,monthlyTaxable))*.0475:0;
+      const health=monthlyTaxable*.0719/2;
+      const care=monthlyTaxable*.009448/2;
       const employment=monthlyTaxable*.009;
-      const incomeBase=Math.max(0, annual - (annual<=5000000?annual*.7:annual<=15000000?3500000+(annual-5000000)*.4:7500000+(annual-15000000)*.15));
+      const annualTaxablePay=Math.max(0,annual-12*nontax);
+      const incomeBase=Math.max(0, annualTaxablePay-earnedIncomeDeduction(annualTaxablePay));
+      const statutoryAnnualPremiums=(pension+health+care+employment)*12;
       const basicDeduction=1500000*dependents;
-      const taxableIncome=Math.max(0,incomeBase-basicDeduction);
+      const taxableIncome=Math.max(0,incomeBase-basicDeduction-statutoryAnnualPremiums);
       const bands=[[14000000,.06,0],[50000000,.15,1260000],[88000000,.24,5760000],[150000000,.35,15440000],[300000000,.38,19940000],[500000000,.40,25940000],[1000000000,.42,35940000],[Infinity,.45,65940000]];
       let annualTax=0; for(const [limit,rate,base] of bands){if(taxableIncome<=limit){annualTax=taxableIncome*rate-base;break}}
-      let earnedCredit=0;if(annualTax<=1300000)earnedCredit=annualTax*.55;else earnedCredit=715000+(annualTax-1300000)*.3;
-      earnedCredit=Math.min(earnedCredit, dependents>=3?740000:dependents===2?710000:660000);
-      const childCount=document.querySelector('#hasDependents').checked?1:0;
-      const taxCredit=earnedCredit+childCount*150000;
-      const incomeTax=Math.max(0,(annualTax-taxCredit)/12);
+      let earnedCredit=annualTax<=1300000?annualTax*.55:715000+(annualTax-1300000)*.3;
+      let earnedCreditCap;
+      if(annualTaxablePay<=33000000) earnedCreditCap=740000;
+      else if(annualTaxablePay<=70000000) earnedCreditCap=Math.max(660000,740000-(annualTaxablePay-33000000)*.008);
+      else if(annualTaxablePay<=120000000) earnedCreditCap=Math.max(500000,660000-(annualTaxablePay-70000000)*.5);
+      else earnedCreditCap=Math.max(200000,500000-(annualTaxablePay-120000000)*.5);
+      earnedCredit=Math.min(earnedCredit,Math.max(0,earnedCreditCap));
+      let monthlyIncomeTax=Math.max(0,(annualTax-earnedCredit)/12);
+      const childReduction=children<=0?0:children===1?12500:29160+(children-2)*25000;
+      monthlyIncomeTax=Math.max(0,monthlyIncomeTax-childReduction);
+      const incomeTax=monthlyIncomeTax;
       const localTax=incomeTax*.1;
       const totalMonthly=pension+health+care+employment+incomeTax+localTax;
       const monthlyNet=Math.max(0,monthlyGross-totalMonthly);
@@ -85,6 +104,9 @@
       document.querySelector('#healthResult').textContent=won(health+care);
       document.querySelector('#employmentResult').textContent=won(employment);
       document.querySelector('#taxResult').textContent=won(incomeTax+localTax);
+      document.querySelector('#previewMonthly').innerHTML=won(monthlyNet).replace('원','')+'<small>원</small>';
+      document.querySelector('#previewDeductions').textContent=won(totalMonthly);
+      document.querySelector('#previewYearly').textContent=won(monthlyNet*12);
       const take=monthlyGross?monthlyNet/monthlyGross*100:0;
       const tax=monthlyGross?(incomeTax+localTax)/monthlyGross*100:0;
       const insurance=monthlyGross?(pension+health+care+employment)/monthlyGross*100:0;
