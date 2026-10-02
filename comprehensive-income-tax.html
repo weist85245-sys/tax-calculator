@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f6f7f4">
+  <meta name="description" content="2026년 귀속 종합소득 과세표준과 공제·기납부세액으로 종합소득세 예상액과 추가 납부·환급 차액을 간편 계산합니다.">
+  <title>2026 종합소득세 예상 계산기 | 세금한눈에</title>
+  <link rel="canonical" href="https://tax-calculator-b1a.pages.dev/comprehensive-income-tax.html">
+  <style>
+    :root{--ink:#17231f;--muted:#66746c;--green:#176b51;--line:#e2e8e0;--paper:#fff;--bg:#f6f7f4;--red:#b42318}
+    *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI","Noto Sans KR",sans-serif;line-height:1.65}a{color:var(--green)}.wrap{width:min(760px,calc(100% - 32px));margin:auto}header{padding:18px 0;border-bottom:1px solid var(--line);display:flex;justify-content:space-between}.brand{font-weight:850;color:var(--ink);text-decoration:none}.back{text-decoration:none;font-size:14px}main{padding:38px 0 64px}.eyebrow{color:var(--green);font-size:13px;font-weight:800}h1{font-size:clamp(28px,5vw,40px);line-height:1.2;letter-spacing:-1.2px;margin:10px 0}.intro{color:#59675f;margin:0 0 24px}.panel{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:24px;box-shadow:0 8px 28px rgba(24,47,37,.05)}h2{font-size:19px;margin:0 0 8px}.sub{font-size:13px;color:var(--muted);margin:0 0 18px}.field{margin:16px 0}.field label{display:block;font-size:14px;font-weight:750;margin-bottom:7px}.input{position:relative}.input input{width:100%;padding:13px 42px 13px 13px;border:1px solid #ccd8cd;border-radius:11px;background:white;text-align:right;font-size:16px;font-variant-numeric:tabular-nums}.input input:focus{outline:3px solid rgba(23,107,81,.13);border-color:var(--green)}.unit{position:absolute;right:14px;top:50%;transform:translateY(-50%);font-size:13px;color:var(--muted);pointer-events:none}.help{font-size:12px;color:#58675e;margin-top:6px}.calc{width:100%;border:0;border-radius:12px;background:var(--green);color:white;padding:14px;font-weight:800;font-size:16px;cursor:pointer;margin-top:8px}.warning{margin:18px 0 0;background:#fff4f2;border:1px solid #f0c7c3;border-left:5px solid var(--red);border-radius:10px;padding:14px 16px;color:#5f1a17;font-size:13px;font-weight:600}.warning strong{color:var(--red);font-weight:850}.result{margin-top:18px;padding:18px;border-radius:14px;background:#edf5ee;border:1px solid #d9e8db}.result[hidden]{display:none}.result-label{font-size:13px;font-weight:750;color:#59675f}.result-main{font-size:clamp(28px,6vw,36px);font-weight:850;color:var(--green);margin:4px 0}.result-main.owe{color:var(--red)}.breakdown{border-top:1px solid #d5e1d6;margin-top:12px;padding-top:10px;font-size:13px}.breakdown div{display:flex;justify-content:space-between;gap:12px;padding:4px 0}.method{margin-top:24px}.method h2{margin:20px 0 8px}.method p,.method li{font-size:14px;color:#526158}footer{border-top:1px solid var(--line);padding:20px 0 30px;font-size:12px;color:#66746c}
+    @media(max-width:520px){main{padding-top:28px}.panel{padding:18px}}
+  </style>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-S2DMJE466T"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-S2DMJE466T');</script>
+</head>
+<body>
+<header class="wrap"><a class="brand" href="/">₩ 세금한눈에</a><a class="back" href="/">홈으로 돌아가기 ←</a></header>
+<main class="wrap">
+  <span class="eyebrow">5월 · 종합소득세 신고 준비</span>
+  <h1>종합소득세 예상 계산기</h1>
+  <p class="intro">종합소득 과세표준과 이미 낸 세금을 입력해 산출세액 및 단순 정산 차액을 확인해 보세요.</p>
+  <form class="panel" id="incomeTaxForm">
+    <h2>신고 자료 입력</h2>
+    <p class="sub">종합소득세 신고 안내 또는 홈택스 자료에서 확인한 금액을 입력하세요.</p>
+    <div class="field"><label for="taxBase">종합소득 과세표준</label><div class="input"><input id="taxBase" data-money type="text" inputmode="numeric" autocomplete="off" required aria-describedby="baseHelp"><span class="unit">원</span></div><div class="help" id="baseHelp">총수입에서 필요경비와 소득공제를 반영한 뒤의 과세표준을 입력합니다. 매출이나 총수입 금액과 다릅니다.</div></div>
+    <div class="field"><label for="credits">공제·감면세액 합계 (없으면 0)</label><div class="input"><input id="credits" data-money type="text" inputmode="numeric" autocomplete="off" value="0" required><span class="unit">원</span></div><div class="help">산출세액에서 차감할 수 있는 국세 공제·감면 금액을 입력합니다.</div></div>
+    <div class="field"><label for="paidNational">이미 낸 소득세 (원천징수·중간예납 등)</label><div class="input"><input id="paidNational" data-money type="text" inputmode="numeric" autocomplete="off" value="0" required><span class="unit">원</span></div></div>
+    <div class="field"><label for="paidLocal">이미 낸 개인지방소득세</label><div class="input"><input id="paidLocal" data-money type="text" inputmode="numeric" autocomplete="off" value="0" required><span class="unit">원</span></div><div class="help">납부서나 신고 자료에서 개인지방소득세 기납부액을 확인하세요.</div></div>
+    <button class="calc" type="submit">예상 세액 계산하기</button>
+    <section class="result" id="result" role="status" aria-live="polite" hidden><div class="result-label" id="resultLabel"></div><div class="result-main" id="resultMain"></div><div class="breakdown" id="breakdown"></div></section>
+    <p class="warning"><strong>중요:</strong> 이 계산기는 과세표준을 산출하지 않습니다. 필요경비, 소득공제, 세액공제·감면의 자격과 금액은 별도로 확인해야 합니다. 기본세율로 계산한 참고용 추정치이며, 가산세·세액공제 한도·분리과세/감면 등 개별 상황은 반영하지 않습니다. 실제 신고와 납부액은 홈택스 신고 결과를 확인하세요.</p>
+  </form>
+  <section class="panel method"><h2>계산 기준</h2><p>입력한 종합소득 과세표준에 소득세법 제55조의 2026년 기본 누진세율을 적용해 산출세액을 추정합니다. 입력한 공제·감면세액을 차감하고, 개인지방소득세는 소득세의 10%로 단순 추정합니다. 이미 낸 소득세와 지방소득세를 뺀 차액을 보여줍니다.</p><ul><li>차액이 0보다 크면 추가 납부 예상액</li><li>차액이 0보다 작으면 돌려받을 예상액</li></ul><p>공식 세율: <a href="https://www.law.go.kr/lsLinkCommonInfo.do?chrClsCd=010202&amp;lsJoLnkSeq=1026637493" target="_blank" rel="noopener noreferrer">국가법령정보센터 소득세법 제55조(세율)</a></p></section>
+</main>
+<footer class="wrap">계산 결과는 입력값에 따른 참고용 추정이며, 세무 자문이나 공식 신고를 대신하지 않습니다. <a href="/privacy.html">개인정보처리방침</a></footer>
+<script>
+  const parseMoney=value=>Number(String(value).replace(/[^0-9]/g,''))||0;
+  const won=value=>Math.abs(Math.round(value)).toLocaleString('ko-KR')+'원';
+  document.querySelectorAll('[data-money]').forEach(input=>input.addEventListener('input',()=>{const digits=input.value.replace(/[^0-9]/g,'');input.value=digits?Number(digits).toLocaleString('ko-KR'):''}));
+  const brackets=[{limit:14000000,rate:.06,deduction:0},{limit:50000000,rate:.15,deduction:1260000},{limit:88000000,rate:.24,deduction:5760000},{limit:150000000,rate:.35,deduction:15440000},{limit:300000000,rate:.38,deduction:19940000},{limit:500000000,rate:.40,deduction:25940000},{limit:1000000000,rate:.42,deduction:35940000},{limit:Infinity,rate:.45,deduction:65940000}];
+  document.querySelector('#incomeTaxForm').addEventListener('submit',event=>{
+    event.preventDefault();
+    const base=parseMoney(document.querySelector('#taxBase').value);
+    const credits=parseMoney(document.querySelector('#credits').value);
+    const paidNational=parseMoney(document.querySelector('#paidNational').value);
+    const paidLocal=parseMoney(document.querySelector('#paidLocal').value);
+    const bracket=brackets.find(item=>base<=item.limit);
+    const calculatedNational=Math.max(0,base*bracket.rate-bracket.deduction);
+    const nationalTax=Math.max(0,calculatedNational-credits);
+    const localTax=Math.round(nationalTax*.1);
+    const balance=nationalTax+localTax-paidNational-paidLocal;
+    document.querySelector('#resultLabel').textContent=balance>0?'추가 납부 예상액':balance<0?'돌려받을 예상액':'추가 정산 없음';
+    document.querySelector('#resultMain').textContent=won(balance);
+    document.querySelector('#resultMain').classList.toggle('owe',balance>0);
+    document.querySelector('#breakdown').innerHTML='<div><span>소득세 산출세액</span><strong>'+won(calculatedNational)+'</strong></div><div><span>공제·감면 반영 후 소득세</span><strong>'+won(nationalTax)+'</strong></div><div><span>개인지방소득세 추정</span><strong>'+won(localTax)+'</strong></div><div><span>이미 낸 세금</span><strong>'+won(paidNational+paidLocal)+'</strong></div>';
+    document.querySelector('#result').hidden=false;
+    if(typeof gtag==='function')gtag('event','calculator_use',{calculator_name:'comprehensive_income_tax'});
+  });
+</script>
+</body>
+</html>
