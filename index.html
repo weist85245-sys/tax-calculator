@@ -18,8 +18,13 @@
     @media(max-width:800px){.nav{display:none}.hero{grid-template-columns:1fr;gap:30px;padding-top:52px}.hero h1{font-size:46px}.preview{max-width:520px}.stats{margin-bottom:55px}.calculator-layout{grid-template-columns:1fr}.tool-grid{grid-template-columns:repeat(2,1fr)}.guide{grid-template-columns:1fr;gap:20px}}
     @media(max-width:480px){.wrap{width:min(100% - 28px,1120px)}header{height:64px}.brand{font-size:17px}.header-cta{padding:10px 13px}.hero{padding-top:38px}.hero h1{font-size:39px;letter-spacing:-1.8px}.hero p{font-size:14px}.hero-actions button{flex:1;padding:12px 9px}.preview{padding:22px}.preview-value{font-size:33px}.stats{padding:13px 2px}.stat b{font-size:15px}.stat span{font-size:10px}.section-head{align-items:start;gap:10px;flex-direction:column}.section-head h2{font-size:24px}.panel{padding:20px}.result-big{font-size:33px}.tool-grid{gap:9px}.tool-card{padding:14px;min-height:150px}.guide{padding:21px}.guide-points{grid-template-columns:1fr}footer{flex-direction:column}}
   </style>  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3194631883825056"
-     crossorigin="anonymous"></script>
-
+     crossorigin="anonymous"></script>  <script async src="https://www.googletagmanager.com/gtag/js?id=G-S2DMJE466T"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag("js", new Date());
+    gtag("config", "G-S2DMJE466T");
+  </script>
 </head>
 <body>
   <header class="wrap">
@@ -114,7 +119,7 @@
       const insurance=monthlyGross?(pension+health+care+employment)/monthlyGross*100:0;
       document.querySelector('.bar-take').style.width=take+'%'; document.querySelector('.bar-tax').style.width=tax+'%'; document.querySelector('.bar-ins').style.width=insurance+'%';
     }
-    document.querySelector('#salaryForm').addEventListener('submit',e=>{e.preventDefault();estimate();const toast=document.querySelector('#toast');toast.classList.add('show');setTimeout(()=>toast.classList.remove('show'),1800)});
+    document.querySelector('#salaryForm').addEventListener('submit',e=>{e.preventDefault();estimate();if(typeof gtag==='function')gtag('event','calculator_use',{calculator_name:'salary_net'});const toast=document.querySelector('#toast');toast.classList.add('show');setTimeout(()=>toast.classList.remove('show'),1800)});
     document.querySelectorAll('#salaryForm input').forEach(el=>el.addEventListener('input',estimate));
     estimate();
   </script>
