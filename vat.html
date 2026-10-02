@@ -69,6 +69,7 @@
   exclusiveMode.addEventListener('click',()=>setMode('exclusive'));
   inclusiveMode.addEventListener('click',()=>setMode('inclusive'));
   amount.addEventListener('input',update);
+  amount.addEventListener("change",()=>{if(typeof gtag==="function")gtag("event","calculator_use",{calculator_name:"vat"})});
   update();
 </script>
 </body>
