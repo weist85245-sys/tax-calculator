@@ -24,7 +24,7 @@
   <div class="layout">
     <section class="card" aria-labelledby="calcTitle"><h2 id="calcTitle">금액 입력</h2><p class="sub">계산할 금액의 종류를 선택하세요.</p>
       <div class="modes" role="group" aria-label="계산 방식"><button class="mode" id="exclusiveMode" type="button" aria-pressed="true">부가세 별도 금액</button><button class="mode" id="inclusiveMode" type="button" aria-pressed="false">부가세 포함 금액</button></div>
-      <label for="amount" id="amountLabel">공급가액</label><div class="input"><input id="amount" type="number" min="0" step="1" inputmode="numeric" value="100000"><span class="unit">원</span></div>
+      <label for="amount" id="amountLabel">공급가액</label><div class="input"><input id="amount" type="text" data-money inputmode="numeric" autocomplete="off" value="100,000"><span class="unit">원</span></div>
       <p class="hint" id="inputHint">부가세를 제외한 금액을 입력하세요.</p>
     </section>
     <section class="card results" aria-live="polite" aria-label="계산 결과"><h2>계산 결과</h2>
@@ -43,13 +43,13 @@
 </main>
 <footer class="wrap site-footer"><a href="/privacy.html">개인정보처리방침</a><a href="/">세금한눈에 홈</a><span>계산 결과는 참고용이며 세무 자문을 대신하지 않습니다.</span></footer>
 <script>
-  const amount = document.querySelector('#amount');
+  const amount = document.querySelector('#amount');amount.addEventListener('input',()=>{const digits=amount.value.replace(/[^0-9]/g,'');amount.value=digits?Number(digits).toLocaleString('ko-KR'):''});
   const exclusiveMode = document.querySelector('#exclusiveMode');
   const inclusiveMode = document.querySelector('#inclusiveMode');
   const won = value => Math.round(value).toLocaleString('ko-KR') + '원';
   let mode = 'exclusive';
   function update(){
-    const entered = Math.max(0, Number(amount.value) || 0);
+    const entered = Math.max(0, Number(amount.value.replace(/[^0-9]/g,"")) || 0);
     const supply = mode === 'exclusive' ? entered : entered / 1.1;
     const vat = mode === 'exclusive' ? entered * 0.1 : entered / 11;
     const total = mode === 'exclusive' ? entered + vat : entered;
