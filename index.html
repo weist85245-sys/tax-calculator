@@ -46,9 +46,9 @@
       <div class="section-head"><div><span class="eyebrow">SALARY CALCULATOR</span><h2>연봉 실수령액 계산기</h2></div><p>2026년 보험료율 기준 · 세금은 단순 추정</p></div>
       <div class="calculator-layout">
         <form class="panel" id="salaryForm"><h3>내 조건 입력하기</h3><p class="panel-sub">입력한 정보는 이 페이지에서 계산에만 사용됩니다.</p>
-          <div class="field"><label for="salaryInput">세전 연봉</label><div class="input-wrap"><input id="salaryInput" type="number" min="0" max="10000000000" step="100000" value="50000000" inputmode="numeric"><span class="suffix">원</span></div><div class="field-help">성과급을 포함한 연간 총 급여를 입력해 주세요.</div></div>
+          <div class="field"><label for="salaryInput">세전 연봉</label><div class="input-wrap"><input id="salaryInput" type="text" data-money inputmode="numeric" autocomplete="off" value="50,000,000"><span class="suffix">원</span></div><div class="field-help">성과급을 포함한 연간 총 급여를 입력해 주세요.</div></div>
           <div class="field"><label for="dependents">공제 대상 가족 수 (본인 포함)</label><div class="input-wrap"><input id="dependents" type="number" min="1" max="20" step="1" value="1" inputmode="numeric"><span class="suffix">명</span></div></div>
-          <div class="field"><label for="nontax">월 비과세액</label><div class="input-wrap"><input id="nontax" type="number" min="0" max="5000000" step="10000" value="200000" inputmode="numeric"><span class="suffix">원</span></div><div class="field-help">식대 등 비과세 급여가 없다면 0원을 입력하세요.</div></div>
+          <div class="field"><label for="nontax">월 비과세액</label><div class="input-wrap"><input id="nontax" type="text" data-money inputmode="numeric" autocomplete="off" value="200,000"><span class="suffix">원</span></div><div class="field-help">식대 등 비과세 급여가 없다면 0원을 입력하세요.</div></div>
           <div class="field"><label for="children">공제 대상 가족 중 8~20세 자녀 수</label><div class="input-wrap"><input id="children" type="number" min="0" max="20" step="1" value="0" inputmode="numeric"><span class="suffix">명</span></div><div class="field-help">해당 자녀가 없다면 0명을 입력하세요.</div></div>
           <button class="calc-button" type="submit">실수령액 계산하기</button>
         </form>
@@ -72,7 +72,7 @@
 </main>
   <footer class="wrap"><span>© 2026 세금한눈에</span><span>본 사이트의 계산 결과는 참고용 정보이며 세무·법률 자문을 대신하지 않습니다.</span><a href="/privacy.html">개인정보처리방침</a></footer><div class="toast" id="toast" role="status">계산이 완료됐어요.</div>
   <script>
-    const won = n => Math.max(0, Math.round(n)).toLocaleString('ko-KR') + '원';
+    const parseMoney=value=>Number(String(value).replace(/[^0-9]/g,''))||0;document.querySelectorAll('[data-money]').forEach(input=>input.addEventListener('input',()=>{const digits=input.value.replace(/[^0-9]/g,'');input.value=digits?Number(digits).toLocaleString('ko-KR'):''}));const won = n => Math.max(0, Math.round(n)).toLocaleString('ko-KR') + '원';
     const clamp = (value, min, max) => Math.min(max, Math.max(min, value));
     function earnedIncomeDeduction(annualTaxablePay){
       let deduction;
@@ -84,9 +84,9 @@
       return Math.min(20000000,deduction);
     }
     function estimate(){
-      const annual = clamp(Number(document.querySelector('#salaryInput').value)||0,0,10000000000);
+      const annual = clamp(parseMoney(document.querySelector('#salaryInput').value),0,10000000000);
       const dependents = clamp(Math.floor(Number(document.querySelector('#dependents').value)||1),1,20);
-      const nontax = clamp(Number(document.querySelector('#nontax').value)||0,0,5000000);
+      const nontax = clamp(parseMoney(document.querySelector('#nontax').value),0,5000000);
       const children = clamp(Math.floor(Number(document.querySelector('#children').value)||0),0,20);
       const monthlyGross=annual/12, monthlyTaxable=Math.max(0,monthlyGross-nontax);
       // 2026 employee shares: NPS 4.75% (July 2026 cap), health 7.19% total with employee cap/floor,
