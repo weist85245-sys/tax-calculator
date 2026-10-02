@@ -22,7 +22,7 @@
   <p class="intro">총급여와 카드 종류별 연간 사용액을 입력해, 현행 공제 규정에 따른 카드 소득공제 예상액을 확인하세요.</p>
   <form class="panel" id="cardForm" novalidate>
     <h2>연간 사용액 입력</h2>
-    <p class="sub">금액을 입력하면 천 단위 쉼표가 자동으로 표시됩니다. 홈택스 연말정산 자료의 항목별 금액을 사용하세요.</p>
+    <p class="sub">금액을 입력하면 천 단위 쉼표가 자동으로 표시됩니다. 홈택스 자료를 사용하고 전통시장·교통·문화 사용액은 카드 사용액과 중복 입력하지 마세요.</p>
     <div class="field"><label for="salary">올해 예상 총급여</label><div class="input"><input id="salary" type="text" data-money inputmode="numeric" autocomplete="off" value="50,000,000" required aria-describedby="salaryHelp"><span class="suffix">원</span></div><div class="help" id="salaryHelp">세전 연간 근로소득 총급여를 입력하세요.</div></div>
     <div class="field"><label for="credit">신용카드 사용액</label><div class="input"><input id="credit" type="text" data-money inputmode="numeric" autocomplete="off" value="0" required><span class="suffix">원</span></div></div>
     <div class="field"><label for="debit">체크카드·현금영수증 등 사용액</label><div class="input"><input id="debit" type="text" data-money inputmode="numeric" autocomplete="off" value="0" required><span class="suffix">원</span></div></div>
@@ -57,16 +57,16 @@
     const culture=parseMoney(document.querySelector('#culture').value);
     const children=Math.min(20,Math.max(0,Number(document.querySelector('#children').value)||0));
     if(!salary){document.querySelector('#salary').focus();return;}
-    const total=credit+debit+market+transit+culture;
+    const total=credit+debit+market+transit+(salary<=70000000?culture:0);
     const threshold=salary*.25;
-    const creditDeduction=Math.max(0,credit-Math.min(credit,threshold))*.15;
-    const remainingThreshold=Math.max(0,threshold-credit);
-    const debitEligible=Math.max(0,debit-Math.max(0,remainingThreshold));
-    const debitDeduction=debitEligible*.30;
-    const marketDeduction=market*.40;
-    const transitDeduction=transit*.40;
-    const cultureDeduction=salary<=70000000?culture*.30:0;
-    const raw=creditDeduction+debitDeduction+marketDeduction+transitDeduction+cultureDeduction;
+    const floorOffset=threshold<=credit?threshold*.15:threshold<=credit+debit+(salary<=70000000?culture:0)?credit*.15+(threshold-credit)*.30:credit*.15+(debit+(salary<=70000000?culture:0))*.30+(threshold-credit-debit-(salary<=70000000?culture:0))*.40;
+
+
+
+
+
+
+    const raw=Math.max(0,credit*.15+debit*.30+(salary<=70000000?culture*.30:0)+market*.40+transit*.40-floorOffset);
     const baseLimit=salary<=70000000?(children>=2?4000000:children===1?3500000:3000000):(children>=2?3000000:children===1?2750000:2500000);
     const deduction=Math.min(raw,baseLimit);
     document.querySelector('#resultLabel').textContent='예상 카드 소득공제액';
