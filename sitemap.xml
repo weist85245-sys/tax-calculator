@@ -1,18 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://tax-calculator-b1a.pages.dev/</loc>
-  </url>
-  <url>
-    <loc>https://tax-calculator-b1a.pages.dev/vat.html</loc>
-  </url>
-  <url>
-    <loc>https://tax-calculator-b1a.pages.dev/year-end-settlement.html</loc>
-  </url>
-  <url>
-    <loc>https://tax-calculator-b1a.pages.dev/comprehensive-income-tax.html</loc>
-  </url>
-  <url>
-    <loc>https://tax-calculator-b1a.pages.dev/privacy.html</loc>
-  </url>
+  <url><loc>https://tax-calculator-b1a.pages.dev/</loc></url>
+  <url><loc>https://tax-calculator-b1a.pages.dev/vat.html</loc></url>
+  <url><loc>https://tax-calculator-b1a.pages.dev/year-end-settlement.html</loc></url>
+  <url><loc>https://tax-calculator-b1a.pages.dev/comprehensive-income-tax.html</loc></url>
+  <url><loc>https://tax-calculator-b1a.pages.dev/acquisition-tax.html</loc></url>
+  <url><loc>https://tax-calculator-b1a.pages.dev/privacy.html</loc></url>
 </urlset>
