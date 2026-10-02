@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f6f7f4">
+  <meta name="description" content="연말정산 전에 총급여의 25% 카드 사용 기준까지 얼마나 남았는지 간편하게 확인하세요.">
+  <title>연말정산 카드 사용액 기준 계산기 | 세금한눈에</title>
+  <link rel="canonical" href="https://tax-calculator-b1a.pages.dev/card-checker.html">
+  <style>
+    :root{--ink:#17231f;--muted:#66746c;--green:#176b51;--lime:#d7f36a;--line:#e2e8e0;--paper:#fff;--bg:#f6f7f4;--soft:#eef4ed}
+    *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,"Noto Sans KR",sans-serif;line-height:1.6}button,input{font:inherit}a{color:var(--green)}.wrap{width:min(760px,calc(100% - 32px));margin:auto}header{padding:20px 0;border-bottom:1px solid var(--line)}.brand{font-weight:850;color:var(--ink);text-decoration:none}.brand-mark{display:inline-grid;place-items:center;width:32px;height:32px;margin-right:8px;border-radius:10px;background:var(--green);color:var(--lime)}main{padding:38px 0 72px}.eyebrow{color:var(--green);font-weight:800;font-size:13px}h1{font-size:clamp(28px,5vw,40px);line-height:1.2;letter-spacing:-1.3px;margin:10px 0 12px}.intro{color:var(--muted);margin:0 0 24px}.panel{background:var(--paper);border:1px solid var(--line);border-radius:20px;padding:24px;box-shadow:0 10px 32px rgba(24,47,37,.05)}h2{font-size:19px;margin:0 0 5px}.sub{font-size:13px;color:var(--muted);margin:0 0 18px}.field{margin:18px 0}.field label{display:block;font-size:14px;font-weight:700;margin-bottom:7px}.input{position:relative}.input input{width:100%;border:1px solid #ccd8cd;border-radius:11px;padding:13px 48px 13px 13px;background:white}.input input:focus{outline:3px solid rgba(23,107,81,.13);border-color:var(--green)}.suffix{position:absolute;right:14px;top:50%;transform:translateY(-50%);font-size:13px;color:#758179;pointer-events:none}.help{font-size:12px;color:#758179;margin-top:6px}.calc{width:100%;border:0;border-radius:12px;background:var(--green);color:white;padding:14px;font-weight:800;margin-top:7px}.result{margin-top:20px;background:var(--soft);border:1px solid #dce9d9;border-radius:14px;padding:18px}.result[hidden]{display:none}.result-label{font-size:13px;color:var(--muted)}.result-main{font-size:clamp(26px,6vw,34px);font-weight:850;color:var(--green);letter-spacing:-1px;margin:4px 0}.result-detail{font-size:13px;color:var(--muted);margin:0}.notice{font-size:13px;color:#526158;margin:18px 0 0}.sources{font-size:12px;color:#758179;margin-top:18px}.sources p{margin:6px 0}footer{border-top:1px solid var(--line);padding:20px 0 30px;font-size:12px;color:#758179;display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap}
+  </style>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-S2DMJE466T"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-S2DMJE466T');</script>
+</head>
+<body>
+<header><div class="wrap"><a class="brand" href="/" aria-label="세금한눈에 홈"><span class="brand-mark">₩</span>세금한눈에</a></div></header>
+<main class="wrap">
+  <span class="eyebrow">10~12월 · 연말정산 준비</span>
+  <h1>카드 사용액 기준 계산기</h1>
+  <p class="intro">올해 총급여와 지금까지의 공제대상 카드 사용액을 입력해, 총급여의 25% 기준선까지 남은 금액을 확인하세요.</p>
+  <form class="panel" id="cardForm">
+    <h2>내 사용액 기준 확인</h2>
+    <p class="sub">신용카드·체크카드·현금영수증의 공제대상 사용액 합계를 입력하세요.</p>
+    <div class="field"><label for="salary">올해 예상 총급여</label><div class="input"><input id="salary" type="number" min="1" max="10000000000" step="10000" value="50000000" required inputmode="numeric"><span class="suffix">원</span></div><div class="help">세전 연간 급여를 입력하세요.</div></div>
+    <div class="field"><label for="spending">올해 현재까지 공제대상 카드 사용액 합계</label><div class="input"><input id="spending" type="number" min="0" max="10000000000" step="10000" value="0" required inputmode="numeric"><span class="suffix">원</span></div><div class="help">홈택스에서 확인한 신용카드·체크카드·현금영수증 등의 공제대상 금액을 입력하세요. 공제 제외 사용액은 빼야 합니다.</div></div>
+    <button class="calc" type="submit">기준선 확인하기</button>
+    <div class="result" id="result" role="status" aria-live="polite" hidden><div class="result-label" id="resultLabel"></div><div class="result-main" id="resultMain"></div><p class="result-detail" id="resultDetail"></p></div>
+    <p class="notice"><strong>참고:</strong> 이 도구는 총급여의 25% 사용 기준만 비교합니다. 소득공제액, 세금 환급액 또는 절세액을 계산하지 않으며, 공제한도·결제수단별 공제율·공제 제외 항목을 반영하지 않습니다. 실제 사용액과 공제 여부는 홈택스 자료 및 해당 귀속연도 국세청 안내를 확인하세요.</p>
+    <div class="sources"><p>기준: 국세청 안내에 따른 신용카드 등 사용액 소득공제 최저사용금액(총급여의 25%).</p><p><a href="https://ems.nts.go.kr/nts/cm/cntnts/cntntsView.do?cntntsId=7794&amp;mi=2469" target="_blank" rel="noopener">국세청 신용카드 등 사용액 소득공제 안내</a> · <a href="https://g.nts.go.kr/nts/na/ntt/selectNttInfo.do?mi=2205&amp;nttSn=1355058" target="_blank" rel="noopener">2026년 국세청 고시</a></p></div>
+  </form>
+</main>
+<footer class="wrap"><span>© 2026 세금한눈에</span><a href="/privacy.html">개인정보처리방침</a></footer>
+<script>
+  const won=n=>Math.max(0,Math.round(n)).toLocaleString('ko-KR')+'원';
+  document.querySelector('#cardForm').addEventListener('submit',e=>{
+    e.preventDefault();
+    const salary=Math.max(0,Number(document.querySelector('#salary').value)||0);
+    const spending=Math.max(0,Number(document.querySelector('#spending').value)||0);
+    const threshold=salary*.25;
+    const remaining=Math.max(0,threshold-spending);
+    document.querySelector('#resultLabel').textContent='총급여 25% 기준선';
+    document.querySelector('#resultMain').textContent=remaining>0?won(remaining)+' 더 필요해요':won(spending-threshold)+' 기준선을 넘었어요';
+    document.querySelector('#resultDetail').textContent=remaining>0?'현재 입력한 사용액 기준으로 공제 문턱까지 남은 금액입니다.':'기준선을 넘은 금액은 소득공제액이나 환급액이 아닙니다. 공제율과 한도 등을 별도로 확인해야 합니다.';
+    document.querySelector('#result').hidden=false;
+    if(typeof gtag==='function')gtag('event','calculator_use',{calculator_name:'card_spending_threshold'});
+  });
+</script>
+</body>
+</html>
