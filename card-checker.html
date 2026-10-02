@@ -23,8 +23,8 @@
   <form class="panel" id="cardForm">
     <h2>내 사용액 기준 확인</h2>
     <p class="sub">신용카드·체크카드·현금영수증의 공제대상 사용액 합계를 입력하세요.</p>
-    <div class="field"><label for="salary">올해 예상 총급여</label><div class="input"><input id="salary" type="number" min="1" max="10000000000" step="10000" value="50000000" required inputmode="numeric"><span class="suffix">원</span></div><div class="help">세전 연간 급여를 입력하세요.</div></div>
-    <div class="field"><label for="spending">올해 현재까지 공제대상 카드 사용액 합계</label><div class="input"><input id="spending" type="number" min="0" max="10000000000" step="10000" value="0" required inputmode="numeric"><span class="suffix">원</span></div><div class="help">홈택스에서 확인한 신용카드·체크카드·현금영수증 등의 공제대상 금액을 입력하세요. 공제 제외 사용액은 빼야 합니다.</div></div>
+    <div class="field"><label for="salary">올해 예상 총급여</label><div class="input"><input id="salary" type="number" min="1" max="10000000000" step="1" value="50000000" required inputmode="numeric"><span class="suffix">원</span></div><div class="help">세전 연간 급여를 입력하세요.</div></div>
+    <div class="field"><label for="spending">올해 현재까지 공제대상 카드 사용액 합계</label><div class="input"><input id="spending" type="number" min="0" max="10000000000" step="1" value="0" required inputmode="numeric"><span class="suffix">원</span></div><div class="help">홈택스에서 확인한 신용카드·체크카드·현금영수증 등의 공제대상 금액을 입력하세요. 공제 제외 사용액은 빼야 합니다.</div></div>
     <button class="calc" type="submit">기준선 확인하기</button>
     <div class="result" id="result" role="status" aria-live="polite" hidden><div class="result-label" id="resultLabel"></div><div class="result-main" id="resultMain"></div><p class="result-detail" id="resultDetail"></p></div>
     <p class="notice"><strong>참고:</strong> 이 도구는 총급여의 25% 사용 기준만 비교합니다. 소득공제액, 세금 환급액 또는 절세액을 계산하지 않으며, 공제한도·결제수단별 공제율·공제 제외 항목을 반영하지 않습니다. 실제 사용액과 공제 여부는 홈택스 자료 및 해당 귀속연도 국세청 안내를 확인하세요.</p>
