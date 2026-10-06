@@ -41,6 +41,50 @@
   const currentKey = document.currentScript.dataset.calculator || shared.find(item => item[1] === requested)?.[0] || 'withholding';
   const current = catalog.find(item => item[0] === currentKey);
   if (!current) return;
+  // Only calculator identifiers are saved locally; never save financial inputs.
+  const historyKey = 'tax-calculator-recent-v1';
+  try {
+    const raw = JSON.parse(localStorage.getItem(historyKey) || '[]');
+    let recent = Array.isArray(raw) ? [...new Set(raw.filter(key => typeof key === 'string' && catalog.some(item => item[0] === key)))].slice(0,6) : [];
+    if (currentKey !== 'salary') {
+      recent = [currentKey,...recent.filter(key => key !== currentKey)].slice(0,6);
+      localStorage.setItem(historyKey,JSON.stringify(recent));
+    } else {
+      document.querySelector('#salaryForm')?.addEventListener('submit', () => {
+        try {
+          const saved = JSON.parse(localStorage.getItem(historyKey) || '[]');
+          const previous = Array.isArray(saved) ? saved.filter(key => key !== 'salary' && catalog.some(item => item[0] === key)) : [];
+          localStorage.setItem(historyKey,JSON.stringify(['salary',...previous].slice(0,6)));
+        } catch { /* Calculator operation must not depend on storage access. */ }
+      });
+      if (recent.length) {
+        const recentSection = document.createElement('section');
+        recentSection.className = 'recent-calculators wrap';
+        const recentTitle = document.createElement('h2');
+        recentTitle.textContent = '최근 열어본 계산기';
+        const note = document.createElement('p');
+        note.textContent = '이 브라우저에서 열어본 계산기입니다. 입력 금액은 저장하지 않습니다.';
+        const links = document.createElement('div');
+        links.className = 'recent-links';
+        recent.forEach(key => {
+          const item = catalog.find(item => item[0] === key);
+          const link = document.createElement('a');
+          link.href = item[3];
+          link.textContent = item[2] + ' ' + item[1].replace(/ 계산기$/,'') + ' ↗';
+          links.append(link);
+        });
+        const clear = document.createElement('button');
+        clear.type = 'button';
+        clear.textContent = '최근 기록 지우기';
+        clear.addEventListener('click', () => {
+          try { localStorage.removeItem(historyKey); recentSection.remove(); }
+          catch { note.textContent = '브라우저 저장소에 접근할 수 없어 기록을 지우지 못했습니다.'; }
+        });
+        recentSection.append(recentTitle,note,links,clear);
+        document.querySelector('#calculators')?.before(recentSection);
+      }
+    }
+  } catch { /* Private browsing or blocked storage: omit the recent list. */ }
   const preferred = {
     salary:['yearend','card','withholding'],weekly:['salary','daily','freelance'],freelance:['income','vat','salary'],
     retirement:['retirementtax','salary','pension'],withholding:['salary','yearend','card'],daily:['weekly','salary','freelance'],retirementtax:['retirement','pension','yearend'],
@@ -83,6 +127,7 @@
   section.append(heading,intro,grid);
   const style = document.createElement('style');
   style.textContent = '.related-calculators{margin:28px 0;color:#202c3d}.related-calculators h2{font-size:21px;margin:0 0 8px}.related-calculators>p{font-size:14px;color:#53647a;margin:0 0 16px}.related-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.related-grid a{display:flex;flex-direction:column;gap:8px;padding:18px;border:1px solid #dce4ef;border-radius:14px;background:#fff;color:#202c3d;text-decoration:none}.related-grid a:hover{border-color:#365e8d;background:#f2f6fc}.related-grid a:focus-visible{outline:3px solid #365e8d;outline-offset:3px}.related-icon{font-size:26px}.related-grid strong{font-size:16px}.related-description{font-size:13px;line-height:1.6;color:#53647a}.related-action{margin-top:auto;padding-top:8px;font-size:14px;font-weight:800;color:#365e8d}@media(max-width:560px){.related-grid{grid-template-columns:1fr}.related-grid a{display:grid;grid-template-columns:38px 1fr;gap:5px 12px;padding:14px}.related-icon{grid-row:1/4}.related-description,.related-action{grid-column:2}.related-action{padding-top:4px}}@media print{.related-calculators{display:none}}';
+  style.textContent += '.recent-calculators{padding-top:24px;padding-bottom:24px}.recent-calculators h2{font-size:22px;margin:0 0 8px}.recent-calculators p{font-size:13px;color:#53647a}.recent-links{display:flex;flex-wrap:wrap;gap:10px;margin:16px 0}.recent-links a{border:1px solid #dce4ef;border-radius:12px;background:#fff;padding:12px 16px;color:#365e8d;text-decoration:none;font-weight:750;font-size:14px}.recent-links a:hover{background:#edf3fa}.recent-links a:focus-visible,.recent-calculators button:focus-visible{outline:3px solid #365e8d;outline-offset:3px}.recent-calculators button{width:auto;border:1px solid #bccbdc;border-radius:8px;background:#fff;color:#53647a;padding:8px 12px;font:600 13px system-ui;cursor:pointer}@media print{.recent-calculators{display:none}}';
   document.head.append(style);
   (currentKey === 'salary' ? document.querySelector('#salary') : document.querySelector('main'))?.append(section);
 })();
