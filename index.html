@@ -27,7 +27,22 @@
 .tool-card{display:flex!important;flex-direction:column;align-items:flex-start}.tool-card p{min-height:3.2em}.tool-tag{margin-top:auto;padding:6px 10px}
 
 
-</style>  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3194631883825056"
+</style>
+<style>
+#calculators .tool-card[hidden],#calculators .tool-grid[hidden],#calculators h3[hidden]{display:none!important}.finder{background:white;border:1px solid #dce5ef;border-radius:16px;padding:18px;margin:20px 0}.finder label{display:block;font-weight:800;margin-bottom:8px}.finder-row{display:flex;gap:8px}.finder input{width:100%;min-width:0;border:1px solid #cbd7e4;border-radius:10px;padding:12px;font-size:16px}.finder button{border:1px solid #cbd7e4;background:#edf4fb;color:#245b8f;border-radius:10px;padding:10px;white-space:nowrap}.finder input:focus-visible,.finder button:focus-visible{outline:3px solid #9bbbd7;outline-offset:2px}.finder-status{color:#52647a;margin:10px 0 0;font-size:13px}.tool-card p{padding-bottom:14px}
+</style>
+<script>
+document.addEventListener('DOMContentLoaded',()=>{
+ const section=document.querySelector('#calculators');if(!section)return;
+ const finder=document.createElement('div');finder.className='finder';finder.innerHTML='<label for="calculatorSearch">🔎 필요한 계산기 찾기</label><div class="finder-row"><input type="search" id="calculatorSearch" placeholder="예: 월세, 대출, 카드, 퇴직금" autocomplete="off" aria-describedby="finderStatus"><button type="button" id="clearCalculatorSearch">전체 보기</button></div><p class="finder-status" id="finderStatus" role="status" aria-live="polite"></p>';
+ section.querySelector('.section-head').after(finder);
+ const input=finder.querySelector('input'),status=finder.querySelector('#finderStatus'),cards=[...section.querySelectorAll('.tool-card')],grids=[...section.querySelectorAll('.tool-grid')];
+ const normalize=text=>text.normalize('NFKC').toLocaleLowerCase('ko-KR').replace(/\s+/g,'');
+ const update=()=>{const query=normalize(input.value);let count=0;cards.forEach(card=>{card.hidden=!normalize(card.textContent).includes(query);if(!card.hidden)count++});grids.forEach(grid=>{grid.hidden=![...grid.querySelectorAll('.tool-card')].some(card=>!card.hidden);const heading=grid.previousElementSibling;if(heading&&heading.tagName==='H3')heading.hidden=grid.hidden});status.textContent=count?count+'개 계산기를 이용할 수 있어요.':'검색 결과가 없습니다. 다른 단어를 입력하거나 전체 보기를 눌러 주세요.'};
+ input.addEventListener('input',update);finder.querySelector('button').addEventListener('click',()=>{input.value='';update();input.focus()});update();
+});
+</script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3194631883825056"
      crossorigin="anonymous"></script>  <script async src="https://www.googletagmanager.com/gtag/js?id=G-S2DMJE466T"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
