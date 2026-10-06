@@ -23,7 +23,7 @@
   <form class="panel" id="cardForm" novalidate>
     <h2>연간 사용액 입력</h2>
     <p class="sub">금액을 입력하면 천 단위 쉼표가 자동으로 표시됩니다. 홈택스 자료를 사용하고 <strong>전통시장·교통·문화 사용액은 신용·체크카드 사용액과 중복 입력하지 마세요.</strong></p>
-    <div class="field"><label for="salary">올해 예상 총급여</label><div class="input"><input id="salary" type="text" data-money inputmode="numeric" autocomplete="off" value="50,000,000" required aria-describedby="salaryHelp"><span class="suffix">원</span></div><div class="help" id="salaryHelp">세전 연간 근로소득 총급여를 입력하세요.</div></div>
+    <div class="field"><label for="salary">2026년 예상 총급여</label><div class="input"><input id="salary" type="text" data-money inputmode="numeric" autocomplete="off" value="50,000,000" required aria-describedby="salaryHelp"><span class="suffix">원</span></div><div class="help" id="salaryHelp">세전 연간 근로소득 총급여를 입력하세요.</div></div>
     <div class="field"><label for="credit">신용카드 사용액</label><div class="input"><input id="credit" type="text" data-money inputmode="numeric" autocomplete="off" value="0" required><span class="suffix">원</span></div></div>
     <div class="field"><label for="debit">체크카드·현금영수증 등 사용액</label><div class="input"><input id="debit" type="text" data-money inputmode="numeric" autocomplete="off" value="0" required><span class="suffix">원</span></div></div>
     <div class="field"><label for="market">전통시장 사용액</label><div class="input"><input id="market" type="text" data-money inputmode="numeric" autocomplete="off" value="0" required><span class="suffix">원</span></div></div>
@@ -32,8 +32,8 @@
     <div class="field"><label for="children">공제 대상 자녀·손자녀 수</label><div class="input"><input id="children" type="number" min="0" max="20" step="1" value="0" required inputmode="numeric"><span class="suffix">명</span></div><div class="help">법에서 정한 기본공제대상 자녀·손자녀 수를 입력하세요. 다른 요건이 있으면 결과가 달라질 수 있습니다.</div></div>
     <button class="calc" type="submit">소득공제 예상액 계산하기</button>
     <div class="result" id="result" role="status" aria-live="polite" hidden><div class="result-label" id="resultLabel"></div><div class="result-main" id="resultMain"></div><p class="result-detail" id="resultDetail"></p><div class="breakdown" id="breakdown"></div></div>
-    <p class="notice"><strong>꼭 확인하세요:</strong> <strong>결과는 카드 사용액 소득공제 예상액이며, 환급액이나 실제 절세액이 아닙니다.</strong> 다른 공제 항목·세율·원천징수액·가족별 자격과 공제 제외 사용처 등을 모두 반영하지 않으므로 실제 연말정산 결과와 다를 수 있습니다. 총급여 7천만 원 이하 기본 한도는 300만 원, 초과는 250만 원이며 법정 부양 자녀 수 등에 따라 한도가 올라갈 수 있습니다. 추가한도 규정은 단순 적용을 위해 이 계산기에 포함하지 않았으니 홈택스·세무 전문가와 최종 확인하세요.</p>
-    <div class="sources"><p>적용 기준: 현행 조세특례제한법 제126조의2(총급여 25% 최저사용액, 결제수단별 공제율 및 기본한도).</p><p><a href="https://www.law.go.kr/lsLinkCommonInfo.do?lsJoLnkSeq=1030490025" target="_blank" rel="noopener">국가법령정보센터: 조세특례제한법 제126조의2</a> · <a href="https://j.nts.go.kr/nts/cm/cntnts/cntntsView.do?cntntsId=7794&amp;mi=2469" target="_blank" rel="noopener">국세청 신용카드 등 사용액 소득공제 안내</a></p></div>
+    <p class="notice"><strong>꼭 확인하세요:</strong> <strong>결과는 카드 사용액 소득공제 예상액이며, 환급액이나 실제 절세액이 아닙니다.</strong> 다른 공제 항목·세율·원천징수액·가족별 자격과 공제 제외 사용처 등을 모두 반영하지 않으므로 실제 연말정산 결과와 다를 수 있습니다. 총급여 7천만 원 이하 기본 한도는 300만 원, 초과는 250만 원이며 법정 부양 자녀 수 등에 따라 한도가 올라갈 수 있습니다. 전통시장·대중교통(총급여 7천만 원 이하는 문화·체육 포함) 추가 공제한도는 300만 원 또는 200만 원을 반영합니다. 총급여 7천만 원 초과의 문화·체육 사용액은 결제수단에 따라 일반 신용카드 또는 체크카드 사용액에 포함해 입력하세요. 최종 금액은 홈택스 자료로 확인하세요.</p>
+    <div class="sources"><p>점검일: 2026.10.06 · 2026년 귀속 기준. 적용 기준: 현행 조세특례제한법 제126조의2(총급여 25% 최저사용액, 결제수단별 공제율 및 기본한도).</p><p><a href="https://www.law.go.kr/lsLinkCommonInfo.do?lsJoLnkSeq=1030490025" target="_blank" rel="noopener">국가법령정보센터: 조세특례제한법 제126조의2</a> · <a href="https://j.nts.go.kr/nts/cm/cntnts/cntntsView.do?cntntsId=7794&amp;mi=2469" target="_blank" rel="noopener">국세청 신용카드 등 사용액 소득공제 안내</a></p></div>
   </form>
 </main>
 <footer class="wrap"><span>© 2026 세금한눈에</span><a href="/privacy.html">개인정보처리방침</a></footer>
@@ -68,12 +68,16 @@
 
     const raw=Math.max(0,credit*.15+debit*.30+(salary<=70000000?culture*.30:0)+market*.40+transit*.40-floorOffset);
     const baseLimit=salary<=70000000?(children>=2?4000000:children===1?3500000:3000000):(children>=2?3000000:children===1?2750000:2500000);
-    const deduction=Math.min(raw,baseLimit);
+    const basicDeduction=Math.min(raw,baseLimit);
+    const specialPool=market*.40+transit*.40+(salary<=70000000?culture*.30:0);
+    const additionalLimit=salary<=70000000?3000000:2000000;
+    const additionalDeduction=Math.min(Math.max(0,raw-baseLimit),specialPool,additionalLimit);
+    const deduction=basicDeduction+additionalDeduction;
     document.querySelector('#resultLabel').textContent='예상 카드 소득공제액';
     document.querySelector('#resultMain').textContent=won(deduction);
     const categoryNote=salary>70000000?'총급여 7천만 원 초과로 문화·체육 사용액은 이 계산에서 제외했습니다.':'문화·체육 사용액은 입력값 전체가 법정 요건을 충족한다고 가정했습니다.';
     document.querySelector('#resultDetail').textContent=`총 사용액 ${won(total)} · 총급여 25% 기준 ${won(threshold)} · ${categoryNote} 실제 적격 금액은 홈택스 자료를 확인하세요.`;
-    document.querySelector('#breakdown').innerHTML=`<div><span>계산된 한도 적용 전 금액</span><strong>${won(raw)}</strong></div><div><span>적용한 기본 한도</span><strong>${won(baseLimit)}</strong></div><div><span>기준선 초과 후 반영한 예상 공제액</span><strong>${won(deduction)}</strong></div>`;
+    document.querySelector('#breakdown').innerHTML=`<div><span>계산된 한도 적용 전 금액</span><strong>${won(raw)}</strong></div><div><span>적용한 기본 한도</span><strong>${won(baseLimit)}</strong></div><div><span>기본 한도 내 공제액</span><strong>${won(basicDeduction)}</strong></div><div><span>전통시장·교통·문화 추가 공제액</span><strong>${won(additionalDeduction)}</strong></div><div><span>추가한도 반영 후 예상 공제액</span><strong>${won(deduction)}</strong></div>`;
     document.querySelector('#result').hidden=false;
     if(typeof gtag==='function')gtag('event','calculator_use',{calculator_name:'card_income_deduction_estimate'});
   });
