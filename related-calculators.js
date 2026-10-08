@@ -36,9 +36,10 @@
     ['exchange','환전·환율 손익 계산기','💱','환율과 비용으로 원화 손익 확인','invest'],
     ['carloan','자동차 할부금 계산기','🚙','선수금과 이율로 월 납입액 확인','car']
   ];
-  shared.forEach(([id,name,icon,description,group]) => catalog.push([id,name,icon,'/finance-tax-calculator?tool='+encodeURIComponent(name),description,group]));
+  shared.forEach(([id,name,icon,description,group]) => catalog.push([id,name,icon,(id==='rent'?'/rent-tax-credit':id==='pension'?'/pension-tax-credit':'/finance-tax-calculator?tool='+encodeURIComponent(name)),description,group]));
   const requested = new URLSearchParams(location.search).get('tool');
-  const currentKey = document.currentScript.dataset.calculator || shared.find(item => item[1] === requested)?.[0] || 'withholding';
+  const dedicatedKey = location.pathname.replace(/\.html$/, '') === '/rent-tax-credit' ? 'rent' : location.pathname.replace(/\.html$/, '') === '/pension-tax-credit' ? 'pension' : '';
+  const currentKey = document.currentScript.dataset.calculator || dedicatedKey || shared.find(item => item[1] === requested)?.[0] || 'withholding';
   const current = catalog.find(item => item[0] === currentKey);
   if (!current) return;
   // Only calculator identifiers are saved locally; never save financial inputs.
