@@ -27,7 +27,7 @@
 .tool-card{display:flex!important;flex-direction:column;align-items:flex-start}.tool-card p{min-height:3.2em}.tool-tag{margin-top:auto;padding:6px 10px}
 
 
-</style>
+@media(max-width:800px){header.wrap{height:auto;min-height:76px;flex-wrap:wrap;gap:12px;padding-top:14px;padding-bottom:14px}.nav{display:flex;order:3;width:100%;gap:8px;flex-wrap:wrap}.nav a{padding:9px 12px;background:#e8f0f8;border-radius:10px;font-size:13px;font-weight:700}.nav a:focus-visible{outline:3px solid #8caed4}} </style>
 <style>
 #calculators .tool-card[hidden],#calculators .tool-grid[hidden],#calculators h3[hidden]{display:none!important}.finder{background:white;border:1px solid #dce5ef;border-radius:16px;padding:18px;margin:20px 0}.finder label{display:block;font-weight:800;margin-bottom:8px}.finder-row{display:flex;gap:8px}.finder input{width:100%;min-width:0;border:1px solid #cbd7e4;border-radius:10px;padding:12px;font-size:16px}.finder button{border:1px solid #cbd7e4;background:#edf4fb;color:#245b8f;border-radius:10px;padding:10px;white-space:nowrap}.finder input:focus-visible,.finder button:focus-visible{outline:3px solid #9bbbd7;outline-offset:2px}.finder-status{color:#52647a;margin:10px 0 0;font-size:13px}.tool-card p{padding-bottom:14px}
 </style>
@@ -54,7 +54,7 @@ document.addEventListener('DOMContentLoaded',()=>{
 <body>
   <header class="wrap">
     <a class="brand" href="#home" aria-label="세금한눈에 홈"><span class="brand-mark">₩</span> 세금한눈에</a>
-    <nav class="nav" aria-label="주요 메뉴"><a href="#calculators">전체 계산기</a><a href="#salary">연봉 계산</a><a href="#guide">이용 안내</a></nav>
+    <nav class="nav" aria-label="주요 메뉴"><a href="#calculators">전체 계산기</a><a href="#salary">연봉 계산</a><a href="/tax-guides">세금 용어·가이드</a><a href="#guide">이용 안내</a></nav>
     <button class="header-cta" onclick="document.querySelector('#salary').scrollIntoView({behavior:'smooth'})">계산 시작하기 ↗</button>
   </header>
   <main id="home">
