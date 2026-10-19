@@ -73,5 +73,5 @@
   update();
 </script>
 <script>document.querySelector('#vat-guide-search').addEventListener('input',event=>{const query=event.target.value.trim().toLowerCase();let count=0;document.querySelectorAll('.guide-term').forEach(item=>{const show=item.textContent.toLowerCase().includes(query);item.hidden=!show;if(show)count++});document.querySelector('#vat-guide-empty').hidden=count>0});</script>
-<script src="/result-tools.js?v=20261006" data-inputs=".layout" data-result=".results" data-title="부가가치세 계산기"></script><script src="/related-calculators.js?v=20261006-recent" data-calculator="vat"></script></body>
+<script src="/result-tools.js?v=20261006" data-inputs=".layout" data-result=".results" data-title="부가가치세 계산기"></script><script src="/related-calculators.js?v=20261017-guides" data-calculator="vat"></script></body>
 </html>

@@ -129,6 +129,46 @@
   const style = document.createElement('style');
   style.textContent = '.related-calculators{margin:28px 0;color:#202c3d}.related-calculators h2{font-size:21px;margin:0 0 8px}.related-calculators>p{font-size:14px;color:#53647a;margin:0 0 16px}.related-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.related-grid a{display:flex;flex-direction:column;gap:8px;padding:18px;border:1px solid #dce4ef;border-radius:14px;background:#fff;color:#202c3d;text-decoration:none}.related-grid a:hover{border-color:#365e8d;background:#f2f6fc}.related-grid a:focus-visible{outline:3px solid #365e8d;outline-offset:3px}.related-icon{font-size:26px}.related-grid strong{font-size:16px}.related-description{font-size:13px;line-height:1.6;color:#53647a}.related-action{margin-top:auto;padding-top:8px;font-size:14px;font-weight:800;color:#365e8d}@media(max-width:560px){.related-grid{grid-template-columns:1fr}.related-grid a{display:grid;grid-template-columns:38px 1fr;gap:5px 12px;padding:14px}.related-icon{grid-row:1/4}.related-description,.related-action{grid-column:2}.related-action{padding-top:4px}}@media print{.related-calculators{display:none}}';
   style.textContent += '.recent-calculators{padding-top:24px;padding-bottom:24px}.recent-calculators h2{font-size:22px;margin:0 0 8px}.recent-calculators p{font-size:13px;color:#53647a}.recent-links{display:flex;flex-wrap:wrap;gap:10px;margin:16px 0}.recent-links a{border:1px solid #dce4ef;border-radius:12px;background:#fff;padding:12px 16px;color:#365e8d;text-decoration:none;font-weight:750;font-size:14px}.recent-links a:hover{background:#edf3fa}.recent-links a:focus-visible,.recent-calculators button:focus-visible{outline:3px solid #365e8d;outline-offset:3px}.recent-calculators button{width:auto;border:1px solid #bccbdc;border-radius:8px;background:#fff;color:#53647a;padding:8px 12px;font:600 13px system-ui;cursor:pointer}@media print{.recent-calculators{display:none}}';
+  const guides = {
+    salary: [['/withholding-tax-guide']],
+    withholding: [['/withholding-tax-guide']],
+    yearend: [['/year-end-refund-guide'], ['/income-deduction-vs-tax-credit']],
+    card: [['/card-deduction-threshold-guide']],
+    rent: [['/rent-credit-vs-cash-receipt-guide']],
+    pension: [['/income-deduction-vs-tax-credit']],
+    freelance: [['/employment-vs-business-income-guide'], ['/business-expenses-guide']],
+    income: [['/taxable-income-guide'], ['/business-expenses-guide']]
+  };
+  const guideTitles = {
+    '/withholding-tax-guide': ['원천징수란? 월급에서 세금을 미리 떼는 이유','월급의 소득세와 연말정산의 관계를 확인하세요.'],
+    '/year-end-refund-guide': ['연말정산 환급과 추가 납부는 어떻게 정해질까요?','결정세액과 기납부세액의 차이를 살펴보세요.'],
+    '/income-deduction-vs-tax-credit': ['소득공제와 세액공제, 무엇이 다를까요?','공제 적용 순서와 공제액·환급액의 차이를 알아보세요.'],
+    '/card-deduction-threshold-guide': ['카드 소득공제, 총급여의 25%를 넘어야 하는 이유','카드 사용액이 모두 공제되는 것은 아닌 이유를 확인하세요.'],
+    '/rent-credit-vs-cash-receipt-guide': ['월세 세액공제와 현금영수증, 둘 다 받을 수 있나요?','같은 월세에 대한 중복 공제와 증빙을 확인하세요.'],
+    '/employment-vs-business-income-guide': ['근로소득과 사업소득은 어떻게 다를까요?','3.3% 원천징수와 소득 구분에 대한 설명입니다.'],
+    '/business-expenses-guide': ['필요경비란? 매출과 소득은 어떻게 다를까요?','입력해야 할 소득금액과 경비의 의미를 확인하세요.'],
+    '/taxable-income-guide': ['과세표준이란? 연봉과 왜 다를까요?','연봉·총급여·과세표준의 차이를 확인하세요.']
+  };
+  const articles = guides[currentKey];
+  if (articles) {
+    const heading = document.createElement('h3');
+    heading.textContent = '계산 결과를 이해하는 데 도움 되는 글';
+    const list = document.createElement('ul');
+    list.className = 'related-guide-links';
+    articles.forEach(([url]) => {
+      const [title, description] = guideTitles[url];
+      const item = document.createElement('li');
+      const link = document.createElement('a');
+      link.href = url;
+      link.textContent = title;
+      const note = document.createElement('span');
+      note.textContent = description;
+      item.append(link, note);
+      list.append(item);
+    });
+    section.append(heading, list);
+  }
+  style.textContent += '.related-guide-links{list-style:none;padding:0}.related-guide-links li{padding:14px 16px;margin:8px 0;border:1px solid #dce4ef;border-radius:12px;background:#fff}.related-guide-links a{display:inline-block;color:#245b8f;font-weight:750;text-underline-offset:4px;padding:4px 0}.related-guide-links a:focus-visible{outline:3px solid #245b8f;outline-offset:3px}.related-guide-links span{display:block;font-size:13px;color:#53647a;margin-top:4px}';
   document.head.append(style);
   (currentKey === 'salary' ? document.querySelector('#salary') : document.querySelector('main'))?.append(section);
 })();
