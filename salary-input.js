@@ -3,7 +3,8 @@
   const amount = document.querySelector('#salaryAmountText');
   if (!input || !amount) return;
   function describe() {
-    const digits = input.value.replace(/[^0-9]/g, '');
+    if (!/^[0-9,]*$/.test(input.value)) { amount.textContent = '연봉을 원 단위 정수로 입력해 주세요.'; return; }
+    const digits = input.value.replace(/,/g, '');
     if (!digits) { amount.textContent = '연봉을 입력해 주세요.'; return; }
     const value = Number(digits);
     const eok = Math.floor(value / 100000000);

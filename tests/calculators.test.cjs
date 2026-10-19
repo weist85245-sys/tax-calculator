@@ -51,7 +51,7 @@ test('card accepts corrected child count after error', () => {
   assert.equal(p.node('#resultMain').textContent, '3,500,000원');
 });
 function salary(values) {
-  return page('index.html', 'function estimate()', {
+  return page('index.html', 'function estimate(', {
     '#salaryInput': 60000000, '#dependents': 1, '#nontax': 200000, '#children': 0, ...values
   });
 }
@@ -71,4 +71,51 @@ test('2026 child-credit guidance includes amendment and transition exclusion', (
   const html = fs.readFileSync(path.join(__dirname, '..', 'index.html'), 'utf8');
   assert.ok(html.includes('2017년생은 제외'));
   assert.ok(!html.includes('8~20세'));
+});
+
+for (const [name, values, field] of [
+  ['blank salary', {'#salaryInput':''}, '#salaryInput'],
+  ['salary beyond supported maximum', {'#salaryInput':'10000000001'}, '#salaryInput'],
+  ['negative salary', {'#salaryInput':'-1'}, '#salaryInput'],
+  ['fractional family count', {'#dependents':'1.5'}, '#dependents'],
+  ['missing family count', {'#dependents':''}, '#dependents'],
+  ['too many family members', {'#dependents':'21'}, '#dependents'],
+  ['children exceed family count', {'#dependents':'1','#children':'1'}, '#children'],
+  ['negative non-taxable pay', {'#nontax':'-1'}, '#nontax'],
+  ['non-taxable pay exceeds monthly salary', {'#salaryInput':1200000,'#nontax':200000}, '#nontax']
+]) test('salary rejects ' + name, () => {
+  const p=salary(values);
+  assert.equal(p.node('.result-panel').hidden,true);
+  assert.equal(p.node('#salaryInputError').hidden,false);
+  assert.equal(p.node(field).attributes['aria-invalid'],'true');
+});
+test('salary hides old output on invalid edit and recovers without changing input', () => {
+  const p=salary({});
+  p.node('#children').value='2';p.submit('#salaryForm');
+  assert.equal(p.node('.result-panel').hidden,true);
+  assert.equal(p.node('#children').value,'2');
+  p.node('#dependents').value='3';p.submit('#salaryForm');
+  assert.equal(p.node('.result-panel').hidden,false);
+  assert.equal(p.node('#salaryInputError').hidden,true);
+});
+for(const value of ['', '0', '-1', '1.5']) test('card hides old result on invalid salary '+JSON.stringify(value),()=>{
+  const p=card({'#credit':50000000});
+  assert.equal(p.node('#result').hidden,false);
+  p.node('#salary').value=value;p.submit('#cardForm');
+  assert.equal(p.node('#result').hidden,true);
+  assert.equal(p.node('#cardInputError').hidden,false);
+});
+test('card hides stale result immediately when input changes',()=>{
+  const p=card({'#credit':50000000});
+  assert.equal(p.node('#result').hidden,false);
+  p.node('#cardForm').listeners.input();
+  assert.equal(p.node('#result').hidden,true);
+});
+test('card recovers after salary is corrected',()=>{
+  const p=card({'#credit':50000000});
+  p.node('#salary').value='0';p.submit('#cardForm');
+  p.node('#salary').value='40000000';p.submit('#cardForm');
+  assert.equal(p.node('#result').hidden,false);
+  assert.equal(p.node('#cardInputError').hidden,true);
+  assert.equal(p.node('#resultMain').textContent,'3,000,000원');
 });
