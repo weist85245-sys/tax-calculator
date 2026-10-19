@@ -112,7 +112,7 @@ document.addEventListener('DOMContentLoaded',()=>{
         const value=Number(raw.replace(/,/g,''));
         const format=money?/^(?:\d+|\d{1,3}(?:,\d{3})+)$/.test(raw):/^\d+$/.test(raw);
         values[id]=value;
-        if(!invalid&&(!format||!Number.isSafeInteger(value)||value<min||value>max))invalid={input,message:label+'은 '+min.toLocaleString('ko-KR')+'~'+max.toLocaleString('ko-KR')+' 사이의 정수로 입력해 주세요.'};
+        if(!invalid&&(!format||!Number.isSafeInteger(value)||value<min||value>max))invalid={input,message:label+' 입력값은 '+min.toLocaleString('ko-KR')+'~'+max.toLocaleString('ko-KR')+' 사이의 정수로 입력해 주세요.'};
       });
       if(!invalid&&values.children>values.dependents-1)invalid={input:document.querySelector('#children'),message:'자녀·손자녀 수는 본인을 제외한 공제 대상 가족 수를 넘을 수 없습니다.'};
       if(!invalid&&values.nontax>values.salaryInput/12)invalid={input:document.querySelector('#nontax'),message:'월 비과세액은 세전 연봉을 12로 나눈 월 급여보다 클 수 없습니다.'};
