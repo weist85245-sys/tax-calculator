@@ -3,10 +3,10 @@
 자동 검증 실행:
 
 ```powershell
-node --test --test-isolation=none tests/calculators.test.cjs tests/finance.test.cjs
+node --test --test-isolation=none tests/calculators.test.cjs tests/finance.test.cjs tests/pages.test.cjs
 ```
 
-총 72개 검증이다. 32개는 실제 연봉·카드 HTML 스크립트를 실행하고, 40개는 운영 페이지에서 공유하는 금융 계산 함수와 스크립트 연결을 검증한다. DOM 대역을 사용하므로 레이아웃이나 브라우저 통합 검사를 대신하지 않는다.
+총 125개 검증이다. 32개는 실제 연봉·카드 HTML 스크립트를 실행하고, 40개는 운영 페이지에서 공유하는 금융 계산 함수와 스크립트 연결을 검증한다. 53개는 공용 계산기 22종의 링크 해석·메타 정보·잘못된 주소 처리 및 사이트맵 연결을 검증한다. DOM 대역을 사용하므로 레이아웃이나 브라우저 통합 검사를 대신하지 않는다.
 
 - 연봉: 6천만 원의 보험료 구성, 국민연금 상·하한, 0원 급여, 개정 자녀 공제 안내.
 - 카드: 총급여 25% 경계, 신용·체크 혼합, 기본 한도, 자녀별 한도, 특별항목 추가 한도, 7천만 원 초과 구간, 잘못된 자녀 수와 수정 후 재계산.
@@ -44,3 +44,5 @@ node --test --test-isolation=none tests/calculators.test.cjs tests/finance.test.
 - [국세청 연금계좌 공제](https://g.nts.go.kr/nts/cm/cntnts/cntntsView.do?cntntsId=7875&mi=6596)
 - [국세청 퇴직소득세 공식 예시](https://www.nts.go.kr/nts/cm/cntnts/cntntsView.do?cntntsId=7880&mi=6448)
 - [고용노동부 퇴직금 계산기](https://www.moel.go.kr/retirementpayCal.do)
+
+2026-10-20 페이지 점검: 공용 계산기 목록의 22개 선택값과 계산 분기 이름이 일치하는지 확인했다. 개별 메타 설명·제목·대표 주소, 월세·연금 전용 주소 우선, 잘못된 선택값·중복 선택값의 계산 양식 숨김을 검증했다. 브라우저에서 상속세 링크의 입력 항목과 결과, 잘못된 주소의 안내도 확인했다. 메타 정보는 브라우저에서 자바스크립트로 설정되며 검색엔진의 색인이나 순위는 보장하지 않는다.
